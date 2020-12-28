@@ -13,13 +13,17 @@ namespace NewTask
             
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
-            
+
+            // Set “durable” argument in QueueDeclare as true (queue will be saved)
             channel.QueueDeclare("task_queue", true, false, 
                 false, null);
 
             var message = GetMessage(args);
             var body = Encoding.UTF8.GetBytes(message);
 
+            // Mark the message as persistent by setting IBasicProperties.SetPersistent to true. (saves message to the disk)
+            // NOTE : RabbitMQ doesn't allow you to redefine an existing queue with different parameters and will return an error to any program that tries to do that. 
+            // Workaround – declare a queue with a different name.
             var properties = channel.CreateBasicProperties();
             properties.Persistent = true;
 

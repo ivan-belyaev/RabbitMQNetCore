@@ -19,6 +19,10 @@ namespace Worker
             channel.QueueDeclare("task_queue", true, false,
                 false, null);
 
+            // Qos - quality of service
+            // PrefetchSize - size of the message that can be sent in advance 0 - disable
+            // Prefetch - 1 message per time
+            // Global – applied separately to each new consumer \ shared across all consumers
             channel.BasicQos(0, 1, false);
 
             Console.WriteLine(" [*] Waiting for messages.");
