@@ -1,0 +1,4 @@
+ [*] Waiting for messages.
+ Press [enter] to exit.
+ [x] Received 'warning':'This is a warning log message'
+ [x] Received 'error':'This is a error log message'
