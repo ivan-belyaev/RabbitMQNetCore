@@ -20,6 +20,7 @@ namespace ReceiveLogsDirect
 
             foreach(var severity in args)
             {
+                // Bindings with extra routingKey parameter 'severity'
                 channel.QueueBind(queueName, "direct_logs", severity); 
             }
 

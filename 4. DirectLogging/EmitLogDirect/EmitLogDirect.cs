@@ -13,6 +13,8 @@ namespace EmitLogDirect
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
+
+            // ExchangeType = Direct to bind messages to the required addresses
             channel.ExchangeDeclare("direct_logs", ExchangeType.Direct);
 
             var severity = args.Length > 0 ? args[0] : "info";
