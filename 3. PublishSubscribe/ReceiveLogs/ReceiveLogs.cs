@@ -13,9 +13,13 @@ namespace ReceiveLogs
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
+
+            // logs how in EmitLog
             channel.ExchangeDeclare("logs", ExchangeType.Fanout);
 
+            // when we supply no parameters to QueueDeclare() we create a non-durable, exclusive, autodelete queue with a generated name
             var queueName = channel.QueueDeclare().QueueName;
+            // Tell exchange to send messages to the queue = binding
             channel.QueueBind(queueName, "logs", "");
 
             Console.WriteLine(" [*] Waiting for logs.");
